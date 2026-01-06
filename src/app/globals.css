@@ -122,8 +122,52 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
+}
+
+/* Custom Prose Styles for Minimalist Blog */
+.prose {
+  @apply text-zinc-900 dark:text-zinc-100;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  @apply font-bold tracking-tight mt-10 mb-4;
+}
+
+.prose h1 { @apply text-3xl; }
+.prose h2 { @apply text-2xl; }
+.prose h3 { @apply text-xl; }
+
+.prose p {
+  @apply mb-6 leading-relaxed;
+}
+
+.prose ul, .prose ol {
+  @apply mb-6 pl-6;
+}
+
+.prose ul { @apply list-disc; }
+.prose ol { @apply list-decimal; }
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose blockquote {
+  @apply pl-4 border-l-2 border-zinc-200 dark:border-zinc-800 italic text-zinc-600 dark:text-zinc-400 mb-6;
+}
+
+.prose code {
+  @apply bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.prose pre {
+  @apply bg-zinc-950 text-zinc-50 p-4 rounded-lg overflow-x-auto mb-6 font-mono text-sm;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-inherit;
 }
 
 @layer base {
