@@ -52,7 +52,7 @@ export default async function PostPage({
     <article className="animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="mb-12">
         <Link
-          href="/"
+          href="/posts"
           className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 mb-8 inline-block transition-colors"
         >
           ← Back to posts
