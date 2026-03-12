@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 /**
  * Next.js Route Handler 示例
- * 
+ *
  * 在 app/api/ 目录下创建 route.ts 文件即可创建 API 路由
  * 支持 GET, POST, PUT, DELETE, PATCH 等方法
  */
@@ -28,10 +28,6 @@ export async function POST(request: Request) {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    return NextResponse.json(
-      { error: "无效的 JSON 数据" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "无效的 JSON 数据" }, { status: 400 });
   }
 }
-

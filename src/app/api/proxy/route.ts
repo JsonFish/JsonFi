@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 /**
  * 通用 API 代理路由
  * 解决 CORS 跨域问题
- * 
+ *
  * 使用方式：
  * GET /api/proxy?url=http://jsonblog.top/api/article&id=47
  * 或者
@@ -16,10 +16,7 @@ export async function GET(request: NextRequest) {
     const targetUrl = searchParams.get("url");
 
     if (!targetUrl) {
-      return NextResponse.json(
-        { error: "缺少 url 参数" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "缺少 url 参数" }, { status: 400 });
     }
 
     // 构建目标 URL（保留其他查询参数）
@@ -54,7 +51,10 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("API 代理错误:", error);
     return NextResponse.json(
-      { error: "代理请求失败", details: error instanceof Error ? error.message : "未知错误" },
+      {
+        error: "代理请求失败",
+        details: error instanceof Error ? error.message : "未知错误",
+      },
       { status: 500 }
     );
   }
@@ -66,10 +66,7 @@ export async function POST(request: NextRequest) {
     const { url: targetUrl, params, headers: customHeaders } = body;
 
     if (!targetUrl) {
-      return NextResponse.json(
-        { error: "缺少 url 参数" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "缺少 url 参数" }, { status: 400 });
     }
 
     // 构建目标 URL
@@ -108,19 +105,24 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("API 代理错误:", error);
     return NextResponse.json(
-      { error: "代理请求失败", details: error instanceof Error ? error.message : "未知错误" },
+      {
+        error: "代理请求失败",
+        details: error instanceof Error ? error.message : "未知错误",
+      },
       { status: 500 }
     );
   }
 }
 
 export async function OPTIONS() {
-  return NextResponse.json({}, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
-  });
+  return NextResponse.json(
+    {},
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    }
+  );
 }
-

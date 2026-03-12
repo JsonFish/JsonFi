@@ -1,6 +1,6 @@
 /**
  * 服务端组件请求示例
- * 
+ *
  * 在服务端组件中，可以直接使用 fetch，Next.js 会自动缓存
  * 注意：这个文件不需要 "use client" 指令
  */
@@ -37,4 +37,3 @@ export default async function ServerExample() {
     </div>
   );
 }
-

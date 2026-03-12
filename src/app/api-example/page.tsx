@@ -47,7 +47,7 @@ export default function ApiExample() {
   return (
     <div className="p-6 space-y-4">
       <h2 className="text-2xl font-bold">使用封装的 API 工具函数</h2>
-      
+
       <div className="flex gap-4">
         <Button onClick={handleGet} disabled={loading}>
           使用 get() 函数
@@ -69,4 +69,3 @@ export default function ApiExample() {
     </div>
   );
 }
-

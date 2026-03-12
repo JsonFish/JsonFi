@@ -1,6 +1,6 @@
 /**
  * API 工具函数
- * 
+ *
  * 封装常用的请求方法，便于在项目中复用
  */
 
@@ -22,7 +22,9 @@ export async function request<T>(
   const { params, ...fetchOptions } = options;
 
   // 处理查询参数
-  let url = endpoint.startsWith("http") ? endpoint : `${API_BASE_URL}${endpoint}`;
+  let url = endpoint.startsWith("http")
+    ? endpoint
+    : `${API_BASE_URL}${endpoint}`;
   if (params) {
     const searchParams = new URLSearchParams(params);
     url += `?${searchParams.toString()}`;
@@ -62,10 +64,7 @@ export async function get<T>(
 /**
  * POST 请求
  */
-export async function post<T>(
-  endpoint: string,
-  data?: any
-): Promise<T> {
+export async function post<T>(endpoint: string, data?: any): Promise<T> {
   return request<T>(endpoint, {
     method: "POST",
     body: JSON.stringify(data),
@@ -75,10 +74,7 @@ export async function post<T>(
 /**
  * PUT 请求
  */
-export async function put<T>(
-  endpoint: string,
-  data?: any
-): Promise<T> {
+export async function put<T>(endpoint: string, data?: any): Promise<T> {
   return request<T>(endpoint, {
     method: "PUT",
     body: JSON.stringify(data),
@@ -93,4 +89,3 @@ export async function del<T>(endpoint: string): Promise<T> {
     method: "DELETE",
   });
 }
-

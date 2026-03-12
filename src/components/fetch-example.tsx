@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 
 /**
  * Next.js 中发起请求的示例
- * 
+ *
  * 在 Next.js App Router 中，有以下几种方式发起请求：
- * 
+ *
  * 1. 客户端组件中使用 fetch（当前示例）
  * 2. 服务端组件中直接使用 fetch（Next.js 会自动缓存）
  * 3. Server Actions（用于表单提交）
@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
  */
 
 export default function FetchExample() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<object | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,7 +24,9 @@ export default function FetchExample() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts/1"
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -42,17 +44,20 @@ export default function FetchExample() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: "foo",
-          body: "bar",
-          userId: 1,
-        }),
-      });
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: "foo",
+            body: "bar",
+            userId: 1,
+          }),
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -86,7 +91,7 @@ export default function FetchExample() {
   return (
     <div className="p-6 space-y-4">
       <h2 className="text-2xl font-bold">Next.js 请求示例</h2>
-      
+
       <div className="flex gap-4">
         <Button onClick={handleFetchGet} disabled={loading}>
           GET 请求示例
@@ -111,4 +116,3 @@ export default function FetchExample() {
     </div>
   );
 }
-
