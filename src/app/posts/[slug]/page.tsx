@@ -1,5 +1,5 @@
 import Tiptap from "@/components/tiptap";
-import Link from "next/link";
+import { PostBackLink } from "@/components/post-back-link";
 import { notFound } from "next/navigation";
 
 const POSTS = {
@@ -51,12 +51,7 @@ export default async function PostPage({
   return (
     <article className="animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="mb-12">
-        <Link
-          href="/posts"
-          className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 mb-8 inline-block transition-colors"
-        >
-          ← Back to posts
-        </Link>
+        <PostBackLink />
         <div className="space-y-4">
           <time className="text-sm text-zinc-400">{post.date}</time>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">

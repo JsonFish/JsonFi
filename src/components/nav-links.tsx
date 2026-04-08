@@ -4,15 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/components/language-provider";
+import type { MessageKey } from "@/lib/i18n";
 
-const LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/posts", label: "Posts" },
-  { href: "/editor", label: "Editor" },
+const LINKS: { href: string; messageKey: MessageKey }[] = [
+  { href: "/", messageKey: "nav.home" },
+  { href: "/posts", messageKey: "nav.posts" },
+  { href: "/editor", messageKey: "nav.editor" },
 ];
 
 export function NavLinks() {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   return (
     <nav className="flex items-center gap-6">
@@ -30,7 +33,7 @@ export function NavLinks() {
               isActive ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-500"
             )}
           >
-            {link.label}
+            {t(link.messageKey)}
             {isActive && (
               <motion.div
                 layoutId="active-nav-underline"

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PostsListContent } from "@/components/posts-list-content";
 
 const POSTS = [
   {
@@ -32,37 +32,5 @@ const POSTS = [
 ];
 
 export default function PostsPage() {
-  return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <section className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">All Posts</h1>
-        <p className="text-zinc-500 dark:text-zinc-400 max-w-lg">
-          A complete collection of my writing on design, technology, and more.
-        </p>
-      </section>
-
-      <div className="grid gap-12">
-        {POSTS.map((post) => (
-          <article key={post.slug} className="group flex flex-col items-start">
-            <time className="text-sm text-zinc-400 mb-2">{post.date}</time>
-            <h2 className="text-2xl font-semibold mb-3 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
-              <Link href={`/posts/${post.slug}`}>{post.title}</Link>
-            </h2>
-            <p className="text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2">
-              {post.description}
-            </p>
-            <Link
-              href={`/posts/${post.slug}`}
-              className="text-sm font-medium flex items-center gap-1 group/link"
-            >
-              Read more
-              <span className="group-hover/link:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
-          </article>
-        ))}
-      </div>
-    </div>
-  );
+  return <PostsListContent posts={POSTS} />;
 }

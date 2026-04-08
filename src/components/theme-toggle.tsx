@@ -1,11 +1,13 @@
 "use client";
 
 import { useTheme } from "./theme-provider";
+import { useLanguage } from "./language-provider";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <Button
@@ -19,7 +21,7 @@ export function ThemeToggle() {
       ) : (
         <Moon className="h-5 w-5 text-zinc-100" />
       )}
-      <span className="sr-only">Toggle theme</span>
+      <span className="sr-only">{t("theme.toggle")}</span>
     </Button>
   );
 }
