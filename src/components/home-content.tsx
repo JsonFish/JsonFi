@@ -25,7 +25,9 @@ export function HomeContent({ posts }: { posts: HomePost[] }) {
             </p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
               {t("home.titlePrefix")}{" "}
-              <span className="text-cyan-500 dark:text-cyan-400">JOURNAL.</span>
+              <span className="text-cyan-500 dark:text-cyan-400">
+                JsonFish.
+              </span>
             </h1>
             <p className="text-xl text-zinc-600 dark:text-zinc-400 font-medium">
               {t("home.role")}
