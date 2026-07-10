@@ -10,7 +10,6 @@ export default function Demo() {
   const [content, setContent] = useState("<p>Write your blog post here...</p>");
 
   const handleSave = () => {
-    console.log("Saving content:", content);
     alert(t("editor.saveAlert"));
   };
 
@@ -18,7 +17,9 @@ export default function Demo() {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="flex justify-between items-end">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">{t("editor.title")}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            {t("editor.title")}
+          </h1>
           <p className="text-zinc-500 dark:text-zinc-400">
             {t("editor.subtitle")}
           </p>

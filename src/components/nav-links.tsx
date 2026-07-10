@@ -10,6 +10,7 @@ import type { MessageKey } from "@/lib/i18n";
 const LINKS: { href: string; messageKey: MessageKey }[] = [
   { href: "/", messageKey: "nav.home" },
   { href: "/posts", messageKey: "nav.posts" },
+  { href: "/notes", messageKey: "nav.notes" },
   { href: "/editor", messageKey: "nav.editor" },
 ];
 
@@ -30,7 +31,7 @@ export function NavLinks() {
             href={link.href}
             className={cn(
               "relative text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 py-1",
-              isActive ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-500"
+              isActive ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-500",
             )}
           >
             {t(link.messageKey)}

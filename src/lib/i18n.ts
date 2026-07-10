@@ -7,6 +7,7 @@ export const LOCALE_STORAGE_KEY = "locale";
 const en = {
   "nav.home": "Home",
   "nav.posts": "Posts",
+  "nav.notes": "Notes",
   "nav.editor": "Editor",
   "footer.copyright": "© {year} Journal",
   "footer.twitter": "Twitter",
@@ -25,20 +26,24 @@ const en = {
   "posts.subtitle":
     "A complete collection of my writing on design, technology, and more.",
   "posts.readMore": "Read more",
+  "notes.title": "All Notes",
+  "notes.subtitle": "Casual thoughts, daily reflections, and quick musings.",
+  "notes.readMore": "Read more",
   "editor.title": "Post Editor",
-  "editor.subtitle":
-    "Create and edit your content using the Tiptap editor.",
+  "editor.subtitle": "Create and edit your content using the Tiptap editor.",
   "editor.save": "Save Post",
   "editor.htmlPreview": "HTML Preview",
   "editor.saveAlert": "Check console for saved HTML content!",
   "post.backToPosts": "← Back to posts",
+  "note.backToNotes": "← Back to notes",
 } as const;
 
 export type MessageKey = keyof typeof en;
 
 const zh: Record<MessageKey, string> = {
   "nav.home": "首页",
-  "nav.posts": "文章",
+  "nav.posts": "文稿",
+  "nav.notes": "手记",
   "nav.editor": "编辑器",
   "footer.copyright": "© {year} Journal",
   "footer.twitter": "Twitter",
@@ -56,12 +61,16 @@ const zh: Record<MessageKey, string> = {
   "posts.title": "全部文章",
   "posts.subtitle": "关于设计、技术等的完整文章列表。",
   "posts.readMore": "阅读全文",
+  "notes.title": "全部手记",
+  "notes.subtitle": "随手记录的日常随想与灵感片段。",
+  "notes.readMore": "阅读全文",
   "editor.title": "文章编辑器",
   "editor.subtitle": "使用 Tiptap 编辑器创建与编辑内容。",
   "editor.save": "保存文章",
   "editor.htmlPreview": "HTML 预览",
   "editor.saveAlert": "保存内容已输出到控制台，请打开开发者工具查看。",
   "post.backToPosts": "← 返回文章列表",
+  "note.backToNotes": "← 返回手记列表",
 };
 
 export function translate(locale: Locale, key: MessageKey): string {
@@ -71,7 +80,7 @@ export function translate(locale: Locale, key: MessageKey): string {
 export function translateWith(
   locale: Locale,
   key: MessageKey,
-  vars: Record<string, string | number>
+  vars: Record<string, string | number>,
 ): string {
   let s = translate(locale, key);
   for (const [k, v] of Object.entries(vars)) {
