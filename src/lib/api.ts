@@ -64,7 +64,7 @@ export async function get<T>(
 /**
  * POST 请求
  */
-export async function post<T>(endpoint: string, data?: any): Promise<T> {
+export async function post<T>(endpoint: string, data?: unknown): Promise<T> {
   return request<T>(endpoint, {
     method: "POST",
     body: JSON.stringify(data),
@@ -74,7 +74,7 @@ export async function post<T>(endpoint: string, data?: any): Promise<T> {
 /**
  * PUT 请求
  */
-export async function put<T>(endpoint: string, data?: any): Promise<T> {
+export async function put<T>(endpoint: string, data?: unknown): Promise<T> {
   return request<T>(endpoint, {
     method: "PUT",
     body: JSON.stringify(data),

@@ -8,7 +8,7 @@ import { get, post } from "@/lib/api";
  * 使用封装的 API 工具函数示例
  */
 export default function ApiExample() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,7 +59,7 @@ export default function ApiExample() {
 
       {loading && <p className="text-blue-500">加载中...</p>}
       {error && <p className="text-red-500">错误: {error}</p>}
-      {data && (
+      {data !== null && (
         <div className="mt-4 p-4 bg-gray-100 rounded">
           <pre className="text-sm overflow-auto">
             {JSON.stringify(data, null, 2)}

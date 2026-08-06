@@ -1,6 +1,6 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "@tiptap/markdown";
 import {
@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const Toolbar = ({ editor }: { editor: any }) => {
+const Toolbar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) return null;
 
   return (
@@ -132,7 +132,7 @@ const Toolbar = ({ editor }: { editor: any }) => {
 const Tiptap = ({
   content = "",
   editable = true,
-  onChange = (html: string) => {},
+  onChange = () => {},
 }: {
   content?: string;
   editable?: boolean;

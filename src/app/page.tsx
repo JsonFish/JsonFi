@@ -1,22 +1,12 @@
 import { HomeContent } from "@/components/home-content";
+import { formatArticleDate, getBlogArticles } from "@/lib/blog-api";
 
-const POSTS = [
-  {
-    title: "The Art of Minimalism in Web Design",
-    date: "Dec 18, 2025",
-    description:
-      "Exploring how less can be more in modern digital experiences.",
-    slug: "minimalism-in-web-design",
-  },
-  {
-    title: "Building with Next.js 16 and Tailwind 4",
-    date: "Dec 15, 2025",
-    description:
-      "Deep dive into the latest features of the web's favorite framework and CSS engine.",
-    slug: "nextjs-16-tailwind-4",
-  },
-];
-
-export default function HomePage() {
-  return <HomeContent posts={POSTS} />;
+export default async function HomePage() {
+  const posts = await getBlogArticles("post", 3);
+  return <HomeContent posts={posts.map((post) => ({
+    title: post.title,
+    date: formatArticleDate(post.createTime),
+    description: post.description,
+    slug: post.slug,
+  }))} />;
 }

@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       receivedData: body,
       timestamp: new Date().toISOString(),
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "无效的 JSON 数据" }, { status: 400 });
   }
 }
