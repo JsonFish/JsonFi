@@ -46,8 +46,9 @@ async function fetchBlog<T>(path: string): Promise<T> {
     cache: "no-store",
     headers: { Accept: "application/json" },
   });
-  const body = (await response.json().catch(() => null)) as ApiResponse<T> | null;
-
+  const body = (await response
+    .json()
+    .catch(() => null)) as ApiResponse<T> | null;
   if (!response.ok || !body || body.code !== 200) {
     throw new BlogApiError(
       body?.message ?? `请求博客服务失败（${response.status}）`,
@@ -70,7 +71,9 @@ export async function getBlogArticle(
   slug: string,
 ): Promise<BlogArticle | null> {
   try {
-    return await fetchBlog<BlogArticle>(`/blog/${type}s/${encodeURIComponent(slug)}`);
+    return await fetchBlog<BlogArticle>(
+      `/blog/${type}s/${encodeURIComponent(slug)}`,
+    );
   } catch (error) {
     if (error instanceof BlogApiError && error.status === 404) {
       return null;

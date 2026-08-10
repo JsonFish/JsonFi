@@ -87,6 +87,7 @@ export function HomeContent({ posts }: { posts: HomePost[] }) {
             src="https://api.dicebear.com/7.x/avataaars/svg?seed=Json"
             alt="Json"
             fill
+            sizes="(min-width: 768px) 16rem, 12rem"
             priority
             className="rounded-full object-cover border-4 border-white dark:border-zinc-900 shadow-2xl relative z-10"
           />
