@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
  * 配置页面标题和描述，SEO
  */
 export const metadata: Metadata = {
-  title: "Minimal Blog",
+  title: "Json",
   description:
     "A high-quality minimalist blog built with Next.js, Tiptap, and shadcn.",
 };
