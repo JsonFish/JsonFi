@@ -128,6 +128,30 @@
   }
 }
 
+/* Match json/src/styles/variable.scss: disable the default snapshot fade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Keep the old light page above the new dark page while its circle shrinks. */
+.dark::view-transition-old(root) {
+  z-index: 999;
+}
+
+/* Capture the final theme colors instead of an intermediate CSS color fade. */
+html.theme-transition,
+html.theme-transition * {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
+}
+
 /* Custom Scrollbar for Webkit Browsers */
 ::-webkit-scrollbar {
   width: 6px;

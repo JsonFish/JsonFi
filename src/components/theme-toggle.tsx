@@ -13,7 +13,14 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      onClick={toggleTheme}
+      onClick={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        // Keyboard clicks have no pointer position; start at the button center.
+        void toggleTheme({
+          x: event.detail === 0 ? bounds.left + bounds.width / 2 : event.clientX,
+          y: event.detail === 0 ? bounds.top + bounds.height / 2 : event.clientY,
+        });
+      }}
       className="rounded-full w-9 h-9 flex items-center justify-center transition-colors"
     >
       {theme === "light" ? (
