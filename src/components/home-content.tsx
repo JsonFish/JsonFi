@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Globe, Mail, Send, Twitter } from "lucide-react";
+import { Github, Mail } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 
 export type HomePost = {
@@ -20,12 +20,9 @@ export function HomeContent({ posts }: { posts: HomePost[] }) {
       <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 py-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
         <div className="flex-1 space-y-6 text-center md:text-left">
           <div className="space-y-2">
-            <p className="text-zinc-600 dark:text-zinc-400 font-medium">
-              {t("home.welcome")}
-            </p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              {t("home.titlePrefix")}{" "}
-              <span className="text-cyan-500 dark:text-cyan-400">Json</span>.
+              {t("home.titlePrefix")}
+              <span className="text-cyan-500 dark:text-cyan-400"> Json</span>.
             </h1>
             <p className="text-xl text-zinc-600 dark:text-zinc-400 font-medium">
               {t("home.role")}
@@ -48,34 +45,30 @@ export function HomeContent({ posts }: { posts: HomePost[] }) {
             </p>
             <div className="flex items-center justify-center md:justify-start gap-4">
               <a
-                href="#"
-                className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:scale-110 transition-transform"
+                target="_blank"
+                href="https://github.com/JsonFish"
+                className="p-2 rounded-full hover:scale-110 transition-transform"
               >
                 <Github className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="p-2 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600"
+                className="p-2 rounded-full hover:scale-110 transition-transform "
               >
-                <Globe className="w-5 h-5" />
+                <Image
+                  src="/x.svg"
+                  alt="X"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 dark:invert"
+                />
               </a>
               <a
-                href="#"
-                className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600"
+                href="mailto:jsonfishyu@gmail.com"
+                target="_blank"
+                className="p-2 rounded-full hover:scale-110 transition-transform"
               >
                 <Mail className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="p-2 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600"
-              >
-                <Send className="w-5 h-5" />
               </a>
             </div>
           </div>
