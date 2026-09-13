@@ -1,15 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-/**
- * 通用 API 代理路由
- * 解决 CORS 跨域问题
- *
- * 使用方式：
- * GET /api/proxy?url=http://jsonblog.top/api/article&id=47
- * 或者
- * POST /api/proxy
- * Body: { url: "http://jsonblog.top/api/article", params: { id: 47 } }
- */
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -55,7 +45,7 @@ export async function GET(request: NextRequest) {
         error: "代理请求失败",
         details: error instanceof Error ? error.message : "未知错误",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -109,7 +99,7 @@ export async function POST(request: NextRequest) {
         error: "代理请求失败",
         details: error instanceof Error ? error.message : "未知错误",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -123,6 +113,6 @@ export async function OPTIONS() {
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
       },
-    }
+    },
   );
 }

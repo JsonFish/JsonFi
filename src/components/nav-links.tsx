@@ -11,7 +11,6 @@ const LINKS: { href: string; messageKey: MessageKey }[] = [
   { href: "/", messageKey: "nav.home" },
   { href: "/posts", messageKey: "nav.posts" },
   { href: "/notes", messageKey: "nav.notes" },
-  { href: "/editor", messageKey: "nav.editor" },
 ];
 
 export function NavLinks() {
