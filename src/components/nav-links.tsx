@@ -18,7 +18,7 @@ export function NavLinks() {
   const { t } = useLanguage();
 
   return (
-    <nav className="flex items-center gap-6">
+    <nav className="flex items-center gap-3 sm:gap-6">
       {LINKS.map((link) => {
         const isActive =
           pathname === link.href ||
