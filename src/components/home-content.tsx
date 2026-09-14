@@ -52,7 +52,8 @@ export function HomeContent({ posts }: { posts: HomePost[] }) {
                 <Github className="w-5 h-5" />
               </a>
               <a
-                href="#"
+                href="https://x.com/Yu4094937774922"
+                target="_blank"
                 className="p-2 rounded-full hover:scale-110 transition-transform "
               >
                 <Image
