@@ -21,7 +21,7 @@ export function ThemeToggle() {
           y: event.detail === 0 ? bounds.top + bounds.height / 2 : event.clientY,
         });
       }}
-      className="rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+      className="rounded-full w-9 h-9 flex items-center justify-center transition-colors bg-transparent hover:bg-transparent dark:hover:bg-transparent"
     >
       {theme === "light" ? (
         <Sun className="h-5 w-5 text-zinc-900" />
