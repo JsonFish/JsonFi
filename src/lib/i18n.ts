@@ -8,7 +8,6 @@ const en = {
   "nav.home": "Home",
   "nav.posts": "Posts",
   "nav.notes": "Notes",
-  "nav.editor": "Editor",
   "theme.toggle": "Toggle theme",
   "lang.switch": "Language",
   "home.titlePrefix": "Hi! I'm",
@@ -40,7 +39,6 @@ const zh: Record<MessageKey, string> = {
   "nav.home": "首页",
   "nav.posts": "文稿",
   "nav.notes": "随笔",
-  "nav.editor": "编辑器",
   "theme.toggle": "切换主题",
   "lang.switch": "语言",
   "home.titlePrefix": "Hi! I'm",
@@ -67,16 +65,4 @@ const zh: Record<MessageKey, string> = {
 
 export function translate(locale: Locale, key: MessageKey): string {
   return locale === "zh" ? zh[key] : en[key];
-}
-
-export function translateWith(
-  locale: Locale,
-  key: MessageKey,
-  vars: Record<string, string | number>,
-): string {
-  let s = translate(locale, key);
-  for (const [k, v] of Object.entries(vars)) {
-    s = s.replaceAll(`{${k}}`, String(v));
-  }
-  return s;
 }

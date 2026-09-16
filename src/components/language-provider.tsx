@@ -6,7 +6,6 @@ import {
   defaultLocale,
   LOCALE_STORAGE_KEY,
   translate,
-  translateWith,
   type MessageKey,
 } from "@/lib/i18n";
 
@@ -14,7 +13,6 @@ type LanguageContextValue = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (key: MessageKey) => string;
-  tWith: (key: MessageKey, vars: Record<string, string | number>) => string;
 };
 
 const LanguageContext = React.createContext<LanguageContextValue | undefined>(
@@ -47,15 +45,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     [locale]
   );
 
-  const tWith = React.useCallback(
-    (key: MessageKey, vars: Record<string, string | number>) =>
-      translateWith(locale, key, vars),
-    [locale]
-  );
-
   const value = React.useMemo(
-    () => ({ locale, setLocale, t, tWith }),
-    [locale, setLocale, t, tWith]
+    () => ({ locale, setLocale, t }),
+    [locale, setLocale, t]
   );
 
   return (

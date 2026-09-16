@@ -4,15 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Github, Mail } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
+import type { ArticleListItem } from "@/lib/blog-api";
 
-export type HomePost = {
-  title: string;
-  date: string;
-  description: string;
-  slug: string;
-};
-
-export function HomeContent({ posts }: { posts: HomePost[] }) {
+export function HomeContent({ posts }: { posts: ArticleListItem[] }) {
   const { t } = useLanguage();
 
   return (

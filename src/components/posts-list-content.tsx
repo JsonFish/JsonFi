@@ -2,15 +2,9 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/components/language-provider";
+import type { ArticleListItem } from "@/lib/blog-api";
 
-export type PostListItem = {
-  title: string;
-  date: string;
-  description: string;
-  slug: string;
-};
-
-export function PostsListContent({ posts }: { posts: PostListItem[] }) {
+export function PostsListContent({ posts }: { posts: ArticleListItem[] }) {
   const { t } = useLanguage();
 
   return (

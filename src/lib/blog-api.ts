@@ -89,3 +89,20 @@ export function formatArticleDate(value: string) {
     day: "2-digit",
   }).format(new Date(value));
 }
+
+/** 列表与首页卡片共用的展示模型：压平接口字段并预格式化日期 */
+export type ArticleListItem = {
+  title: string;
+  date: string;
+  description: string;
+  slug: string;
+};
+
+export function toArticleListItem(article: BlogArticle): ArticleListItem {
+  return {
+    title: article.title,
+    date: formatArticleDate(article.createTime),
+    description: article.description,
+    slug: article.slug,
+  };
+}
