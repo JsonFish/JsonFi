@@ -14,7 +14,14 @@ const LINKS: { href: string; messageKey: MessageKey }[] = [
   { href: "/notes", messageKey: "nav.notes" },
 ];
 
-const SPRING = { type: "spring", stiffness: 380, damping: 30 } as const;
+// velocity: 0 —— framer 的 animate() 默认会拿 motion value 当前的瞬时速度当弹簧初速度，
+// 我们的位移都是离散跳变，必须显式从静止开始，否则会被弹飞。
+const SPRING = {
+  type: "spring",
+  stiffness: 380,
+  damping: 30,
+  velocity: 0,
+} as const;
 
 export function NavLinks() {
   const pathname = usePathname();
@@ -22,7 +29,9 @@ export function NavLinks() {
 
   const navRef = useRef<HTMLElement | null>(null);
   const linkRefs = useRef(new Map<string, HTMLAnchorElement>());
-  const hasMeasured = useRef(false);
+  const hasPlaced = useRef(false);
+  const lastHref = useRef<string | null>(null);
+  const position = useRef({ x: 0, width: 0 });
 
   const x = useMotionValue(0);
   const width = useMotionValue(0);
@@ -44,12 +53,30 @@ export function NavLinks() {
     const nextX = target.offsetLeft;
     const nextWidth = target.offsetWidth;
 
-    if (!hasMeasured.current) {
-      // 首次直接落位，避免进场时从 x=0 滑过来
-      hasMeasured.current = true;
-      x.set(nextX);
-      width.set(nextWidth);
-      opacity.set(1);
+    const hrefChanged = lastHref.current !== activeHref;
+    lastHref.current = activeHref;
+
+    // 目标没变就是一次空测量：ResizeObserver 注册时的首次回调、
+    // document.fonts.ready 都会重复触发，必须直接返回。
+    if (
+      hasPlaced.current &&
+      position.current.x === nextX &&
+      position.current.width === nextWidth
+    ) {
+      return;
+    }
+
+    position.current = { x: nextX, width: nextWidth };
+
+    // 只有「点击导航真正换页」才做平滑滑动；首帧就位以及字体加载、
+    // 样式生效、尺寸变化导致的纠正性测量一律瞬间落位，避免刷新时乱动。
+    if (!hasPlaced.current || !hrefChanged) {
+      // 这里必须用 jump() 而不是 set()：jump() 会清掉速度追踪状态，
+      // set() 会把这一帧的跳变记成速度，被后续 animate() 当成初速度用。
+      x.jump(nextX);
+      width.jump(nextWidth);
+      opacity.jump(1);
+      hasPlaced.current = true;
       return;
     }
 
