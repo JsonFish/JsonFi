@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/components/language-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { auth, authProviders } from "@/auth";
 
 // Geist（无衬线）和 Geist_Mono（等宽）
 const geistSans = Geist({
@@ -26,11 +27,13 @@ export const metadata: Metadata = {
     "A high-quality minimalist blog built with Next.js, Tiptap, and shadcn.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = process.env.AUTH_SECRET ? await auth() : null;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -70,7 +73,10 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             <div className="max-w-3xl mx-auto px-6">
-              <SiteHeader />
+              <SiteHeader
+                userName={session?.user?.name ?? session?.user?.email ?? null}
+                authProviders={authProviders}
+              />
               <main className="py-10">{children}</main>
               <SiteFooter />
             </div>

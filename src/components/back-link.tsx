@@ -3,15 +3,18 @@
 import Link from "next/link";
 import { useLanguage } from "@/components/language-provider";
 
-export function PostBackLink() {
-  const { t } = useLanguage();
+type BackLinkProps = {
+  href: string;
+};
 
+export function BackLink({ href }: BackLinkProps) {
+  const { t } = useLanguage();
   return (
     <Link
-      href="/posts"
+      href={href}
       className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 mb-8 inline-block transition-colors"
     >
-      {t("post.backToPosts")}
+      {t("info.back")}
     </Link>
   );
 }

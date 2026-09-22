@@ -1,10 +1,10 @@
 import { ArticleDetailLoading } from "@/components/article-detail-loading";
-import { NoteBackLink } from "@/components/note-back-link";
+import { BackLink } from "@/components/back-link";
 
 export default function Loading() {
   return (
     <ArticleDetailLoading>
-      <NoteBackLink />
+      <BackLink href="/notes" />
     </ArticleDetailLoading>
   );
 }

@@ -1,5 +1,5 @@
 import Tiptap from "@/components/tiptap";
-import { PostBackLink } from "@/components/post-back-link";
+import { BackLink } from "@/components/back-link";
 import { formatArticleDate, getBlogArticle } from "@/lib/blog-api";
 import { notFound } from "next/navigation";
 
@@ -16,7 +16,7 @@ export default async function PostPage({
   return (
     <article className="animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="mb-12">
-        <PostBackLink />
+        <BackLink href="/posts" />
         <div className="space-y-4">
           <time className="text-sm text-zinc-400">
             {formatArticleDate(post.createTime)}

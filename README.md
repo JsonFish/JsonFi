@@ -22,6 +22,22 @@ Copy `.env.example` to `.env.local` and set `NEST_API_URL` to the running
 `json-server` address (the default is `http://localhost:3001`). The home page,
 posts, notes, and their detail pages then read the public blog API directly.
 
+## GitHub and Google login
+
+Copy `.env.example` to `.env.local`, generate `AUTH_SECRET` with `npx auth secret`,
+and create OAuth applications for GitHub and Google. Set their client IDs and
+secrets in `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET`, `AUTH_GOOGLE_ID`, and
+`AUTH_GOOGLE_SECRET`. For local development, register these callback URLs:
+
+- GitHub: `http://localhost:3000/api/auth/callback/github`
+- Google: `http://localhost:3000/api/auth/callback/google`
+
+Register the corresponding HTTPS callback URLs for production. The header
+shows a setup hint when a login option is clicked before its credentials and
+`AUTH_SECRET` are configured.
+This login creates a session for the Next.js website; it does not issue a token
+for the separate Nest API.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses `[next/font](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)` to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

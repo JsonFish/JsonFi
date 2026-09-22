@@ -9,13 +9,20 @@ import {
 } from "framer-motion";
 import { NavLinks } from "@/components/nav-links";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LoginMenu } from "@/components/login-menu";
 
 /** 顶部这段距离内始终显示，避免刚离开顶部就收起 */
 const ALWAYS_VISIBLE_UNTIL = 80;
 /** 小于这个滚动幅度直接忽略，防止触控板惯性滚动时来回抖动 */
 const MIN_DELTA = 8;
 
-export function SiteHeader() {
+export function SiteHeader({
+  userName,
+  authProviders,
+}: {
+  userName: string | null;
+  authProviders: { github: boolean; google: boolean };
+}) {
   const { scrollY } = useScroll();
   const lastY = useRef(0);
   const [hidden, setHidden] = useState(false);
@@ -49,6 +56,7 @@ export function SiteHeader() {
       <div className="flex items-center gap-2 sm:gap-4">
         <NavLinks />
         <ThemeToggle />
+        <LoginMenu userName={userName} authProviders={authProviders} />
       </div>
     </motion.header>
   );

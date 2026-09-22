@@ -9,6 +9,13 @@ const en = {
   "nav.posts": "Posts",
   "nav.notes": "Notes",
   "theme.toggle": "Toggle theme",
+  "auth.login": "Log in",
+  "auth.title": "Log in to Json",
+  "auth.github": "Continue with GitHub",
+  "auth.google": "Continue with Google",
+  "auth.setup": "Configure OAuth credentials to enable sign-in.",
+  "auth.signedInAs": "Signed in as",
+  "auth.logout": "Log out",
   "lang.switch": "Language",
   "home.titlePrefix": "Hi! I'm",
   "home.role": "A Front-End Development Engineer.",
@@ -30,8 +37,7 @@ const en = {
   "editor.save": "Save Post",
   "editor.htmlPreview": "HTML Preview",
   "editor.saveAlert": "Check console for saved HTML content!",
-  "post.backToPosts": "← Back to posts",
-  "note.backToNotes": "← Back to notes",
+  "info.back": "← Back",
 } as const;
 
 export type MessageKey = keyof typeof en;
@@ -41,6 +47,13 @@ const zh: Record<MessageKey, string> = {
   "nav.posts": "文稿",
   "nav.notes": "随笔",
   "theme.toggle": "切换主题",
+  "auth.login": "登录",
+  "auth.title": "登录到 Json",
+  "auth.github": "使用 GitHub 登录",
+  "auth.google": "使用 Google 登录",
+  "auth.setup": "请先配置 OAuth 凭据以启用登录。",
+  "auth.signedInAs": "当前登录账号",
+  "auth.logout": "退出登录",
   "lang.switch": "语言",
   "home.titlePrefix": "Hi! I'm",
   "home.role": "一名前端开发工程师。",
@@ -61,8 +74,7 @@ const zh: Record<MessageKey, string> = {
   "editor.save": "保存文章",
   "editor.htmlPreview": "HTML 预览",
   "editor.saveAlert": "保存内容已输出到控制台，请打开开发者工具查看。",
-  "post.backToPosts": "← 返回文章列表",
-  "note.backToNotes": "← 返回随笔列表",
+  "info.back": "← 返回",
 };
 
 export function translate(locale: Locale, key: MessageKey): string {

@@ -1,10 +1,10 @@
 import { ArticleDetailLoading } from "@/components/article-detail-loading";
-import { PostBackLink } from "@/components/post-back-link";
+import { BackLink } from "@/components/back-link";
 
 export default function Loading() {
   return (
     <ArticleDetailLoading>
-      <PostBackLink />
+      <BackLink href="/posts" />
     </ArticleDetailLoading>
   );
 }
