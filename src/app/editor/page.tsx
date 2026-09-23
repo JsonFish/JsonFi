@@ -7,9 +7,10 @@ import { useLanguage } from "@/components/language-provider";
 
 export default function Demo() {
   const { t } = useLanguage();
-  const [content, setContent] = useState("<p>Write your blog post here...</p>");
+  const [content, setContent] = useState("# Write your blog post here...");
 
   const handleSave = () => {
+    console.info("Markdown content:", content);
     alert(t("editor.saveAlert"));
   };
 
@@ -38,10 +39,12 @@ export default function Demo() {
 
       <section className="space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
-          {t("editor.htmlPreview")}
+          {t("editor.markdownPreview")}
         </h2>
         <div className="p-4 bg-zinc-50 dark:bg-zinc-900 rounded-lg overflow-auto max-h-40 border border-zinc-100 dark:border-zinc-800">
-          <code className="text-xs text-zinc-500 break-all">{content}</code>
+          <pre className="m-0 whitespace-pre-wrap break-words">
+            <code className="text-xs text-zinc-500">{content}</code>
+          </pre>
         </div>
       </section>
     </div>

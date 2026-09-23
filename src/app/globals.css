@@ -168,11 +168,131 @@ html.theme-transition * {
 }
 
 .prose pre {
-  @apply bg-zinc-950 text-zinc-50 p-4 rounded-lg overflow-x-auto mb-6 font-mono text-sm;
+  @apply relative overflow-x-auto mb-6 rounded-xl border border-zinc-200 p-5 font-mono text-sm leading-7 shadow-sm;
+  background: #f6f8fa;
+  color: #24292f;
 }
 
 .prose pre code {
-  @apply bg-transparent p-0 text-inherit;
+  @apply block bg-transparent p-0 text-inherit;
+  tab-size: 2;
+}
+
+.dark .prose pre {
+  border-color: #30363d;
+  background: #0d1117;
+  color: #e6edf3;
+}
+
+.prose pre .hljs-comment,
+.prose pre .hljs-quote {
+  color: #6e7781;
+  font-style: italic;
+}
+
+.dark .prose pre .hljs-comment,
+.dark .prose pre .hljs-quote {
+  color: #8b949e;
+}
+
+.prose pre .hljs-keyword,
+.prose pre .hljs-selector-tag,
+.prose pre .hljs-literal,
+.prose pre .hljs-section,
+.prose pre .hljs-link,
+.prose pre .hljs-meta .hljs-keyword {
+  color: #cf222e;
+}
+
+.dark .prose pre .hljs-keyword,
+.dark .prose pre .hljs-selector-tag,
+.dark .prose pre .hljs-literal,
+.dark .prose pre .hljs-section,
+.dark .prose pre .hljs-link,
+.dark .prose pre .hljs-meta .hljs-keyword {
+  color: #ff7b72;
+}
+
+.prose pre .hljs-string,
+.prose pre .hljs-attr,
+.prose pre .hljs-template-tag,
+.prose pre .hljs-template-variable {
+  color: #0a3069;
+}
+
+.dark .prose pre .hljs-string,
+.dark .prose pre .hljs-attr,
+.dark .prose pre .hljs-template-tag,
+.dark .prose pre .hljs-template-variable {
+  color: #a5d6ff;
+}
+
+.prose pre .hljs-title,
+.prose pre .hljs-title.function_,
+.prose pre .hljs-title.class_,
+.prose pre .hljs-name,
+.prose pre .hljs-built_in {
+  color: #8250df;
+}
+
+.dark .prose pre .hljs-title,
+.dark .prose pre .hljs-title.function_,
+.dark .prose pre .hljs-title.class_,
+.dark .prose pre .hljs-name,
+.dark .prose pre .hljs-built_in {
+  color: #d2a8ff;
+}
+
+.prose pre .hljs-number,
+.prose pre .hljs-symbol,
+.prose pre .hljs-bullet {
+  color: #0550ae;
+}
+
+.dark .prose pre .hljs-number,
+.dark .prose pre .hljs-symbol,
+.dark .prose pre .hljs-bullet {
+  color: #79c0ff;
+}
+
+.prose pre .hljs-variable,
+.prose pre .hljs-params,
+.prose pre .hljs-property {
+  color: #953800;
+}
+
+.dark .prose pre .hljs-variable,
+.dark .prose pre .hljs-params,
+.dark .prose pre .hljs-property {
+  color: #ffa657;
+}
+
+.prose pre .hljs-addition {
+  color: #116329;
+  background: #dafbe1;
+}
+
+.dark .prose pre .hljs-addition {
+  color: #aff5b4;
+  background: #033a16;
+}
+
+.prose pre .hljs-deletion {
+  color: #82071e;
+  background: #ffebe9;
+}
+
+.dark .prose pre .hljs-deletion {
+  color: #ffdcd7;
+  background: #67060c;
+}
+
+.prose img {
+  @apply mx-auto my-8 h-auto max-w-full rounded-xl border border-zinc-200 shadow-sm;
+}
+
+.dark .prose img {
+  @apply border-zinc-800;
 }
 
 @layer base {

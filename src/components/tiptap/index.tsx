@@ -3,6 +3,9 @@
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "@tiptap/markdown";
+import Image from "@tiptap/extension-image";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { common, createLowlight } from "lowlight";
 import {
   Bold,
   Italic,
@@ -16,6 +19,32 @@ import {
   Heading2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const lowlight = createLowlight(common);
+
+// Parse the legacy linked-image form as an image token. Marked only invokes
+// inline tokenizers outside code spans and fenced code blocks.
+const LegacyImage = Image.extend({
+  markdownTokenizer: {
+    name: "legacyImage",
+    level: "inline",
+    start: "![",
+    tokenize(src) {
+      const match = /^!\[([^\]]*)\]\\\(\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)\)/.exec(
+        src,
+      );
+      if (!match) return;
+
+      return {
+        type: "image",
+        raw: match[0],
+        text: match[1] || match[2],
+        href: match[3],
+        title: null,
+      };
+    },
+  },
+});
 
 const Toolbar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) return null;
@@ -136,14 +165,20 @@ const Tiptap = ({
 }: {
   content?: string;
   editable?: boolean;
-  onChange?: (html: string) => void;
+  onChange?: (markdown: string) => void;
 }) => {
   const editor = useEditor({
-    extensions: [StarterKit, Markdown],
-    content: content,
+    extensions: [
+      StarterKit.configure({ codeBlock: false }),
+      CodeBlockLowlight.configure({ lowlight }),
+      LegacyImage,
+      Markdown,
+    ],
+    content,
+    contentType: "markdown",
     editable: editable,
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      onChange(editor.getMarkdown());
     },
     immediatelyRender: false,
     editorProps: {

@@ -18,7 +18,7 @@ const en = {
   "auth.logout": "Log out",
   "lang.switch": "Language",
   "home.titlePrefix": "Hi! I'm",
-  "home.role": "A Front-End Development Engineer.",
+  "home.role": "A Full-Stack Engineer.",
   "home.interestedIntro": "I'm Interested In",
   "home.and": "And",
   "home.moreAboutMe": "More about me",
@@ -35,8 +35,8 @@ const en = {
   "editor.title": "Post Editor",
   "editor.subtitle": "Create and edit your content using the Tiptap editor.",
   "editor.save": "Save Post",
-  "editor.htmlPreview": "HTML Preview",
-  "editor.saveAlert": "Check console for saved HTML content!",
+  "editor.markdownPreview": "Markdown Preview",
+  "editor.saveAlert": "Markdown content has been logged to the console.",
   "info.back": "← Back",
 } as const;
 
@@ -56,7 +56,7 @@ const zh: Record<MessageKey, string> = {
   "auth.logout": "退出登录",
   "lang.switch": "语言",
   "home.titlePrefix": "Hi! I'm",
-  "home.role": "一名前端开发工程师。",
+  "home.role": "一名全栈工程师。",
   "home.interestedIntro": "我关注",
   "home.and": "以及",
   "home.moreAboutMe": "更多关于我",
@@ -72,8 +72,8 @@ const zh: Record<MessageKey, string> = {
   "editor.title": "文章编辑器",
   "editor.subtitle": "使用 Tiptap 编辑器创建与编辑内容。",
   "editor.save": "保存文章",
-  "editor.htmlPreview": "HTML 预览",
-  "editor.saveAlert": "保存内容已输出到控制台，请打开开发者工具查看。",
+  "editor.markdownPreview": "Markdown 预览",
+  "editor.saveAlert": "Markdown 内容已输出到控制台，请打开开发者工具查看。",
   "info.back": "← 返回",
 };
 
