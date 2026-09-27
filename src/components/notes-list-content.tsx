@@ -25,18 +25,9 @@ export function NotesListContent({ notes }: { notes: ArticleListItem[] }) {
             <h2 className="text-2xl font-semibold mb-3 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
               <Link href={`/notes/${note.slug}`}>{note.title}</Link>
             </h2>
-            <p className="text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2">
+            <p className="text-zinc-500 dark:text-zinc-400 line-clamp-2">
               {note.description}
             </p>
-            <Link
-              href={`/notes/${note.slug}`}
-              className="text-sm font-medium flex items-center gap-1 group/link"
-            >
-              {t("notes.readMore")}
-              <span className="group-hover/link:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
           </article>
         ))}
       </div>

@@ -30,7 +30,8 @@ export function HomeContent({ posts }: { posts: ArticleListItem[] }) {
               NextJs
             </span>{" "}
             {t("home.and")}{" "}
-            <span className="text-[#e0234e] font-semibold">NestJs</span>.
+            <span className="text-[#e0234e] font-semibold">NestJs</span>
+            {t("home.interestedOutro")}
           </p>
 
           <div className="space-y-4">

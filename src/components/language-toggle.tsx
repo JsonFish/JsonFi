@@ -1,9 +1,7 @@
 "use client";
 
-import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Check, ChevronUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useId } from "react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { Locale } from "@/lib/i18n";
 import { useLanguage } from "./language-provider";
 
@@ -14,82 +12,33 @@ const OPTIONS: { value: Locale; label: string }[] = [
 
 export function LanguageToggle() {
   const { locale, setLocale, t } = useLanguage();
-  const [open, setOpen] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, []);
-
-  const current = OPTIONS.find((o) => o.value === locale);
+  const id = useId();
 
   return (
-    <div ref={ref} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={t("lang.switch")}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors"
-      >
-        <span>{current?.label}</span>
-        <ChevronUp
-          className={cn("size-3 transition-transform", open && "rotate-180")}
-        />
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.ul
-            role="listbox"
-            initial={{ opacity: 0, y: 8, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.96 }}
-            transition={{ duration: 0.15 }}
-            className="absolute right-0 bottom-full mb-2 w-16 origin-bottom-right rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg overflow-hidden z-50"
+    <RadioGroup
+      value={locale}
+      onValueChange={(value) => {
+        if (value === "en" || value === "zh") setLocale(value);
+      }}
+      orientation="horizontal"
+      aria-label={t("lang.switch")}
+      className="flex items-center gap-4"
+    >
+      {OPTIONS.map((option) => (
+        <div key={option.value} className="flex items-center gap-2">
+          <RadioGroupItem
+            value={option.value}
+            id={`${id}-${option.value}`}
+            className="peer"
+          />
+          <label
+            htmlFor={`${id}-${option.value}`}
+            className="cursor-pointer text-xs font-medium text-muted-foreground transition-colors peer-data-[state=checked]:text-foreground"
           >
-            {OPTIONS.map((opt) => {
-              const active = locale === opt.value;
-              return (
-                <li key={opt.value}>
-                  <button
-                    type="button"
-                    role="option"
-                    aria-selected={active}
-                    onClick={() => {
-                      setLocale(opt.value);
-                      setOpen(false);
-                    }}
-                    className={cn(
-                      "w-full flex items-center justify-between px-3 py-2 text-xs font-medium transition-colors",
-                      active
-                        ? "text-zinc-900 dark:text-zinc-100 bg-zinc-50 dark:bg-zinc-800"
-                        : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-800",
-                    )}
-                  >
-                    {opt.label}
-                    {active && <Check className="size-3.5" />}
-                  </button>
-                </li>
-              );
-            })}
-          </motion.ul>
-        )}
-      </AnimatePresence>
-    </div>
+            {option.label}
+          </label>
+        </div>
+      ))}
+    </RadioGroup>
   );
 }
