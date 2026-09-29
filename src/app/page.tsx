@@ -1,7 +1,11 @@
 import { HomeContent } from "@/components/home-content";
-import { getBlogArticles, toArticleListItem } from "@/lib/blog-api";
+import {
+  getBlogArticles,
+  HOME_LATEST_COUNT,
+  toArticleListItem,
+} from "@/lib/blog-api";
 
 export default async function HomePage() {
-  const posts = await getBlogArticles("post", 3);
+  const posts = await getBlogArticles("post", HOME_LATEST_COUNT);
   return <HomeContent posts={posts.map(toArticleListItem)} />;
 }

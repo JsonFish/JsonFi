@@ -21,12 +21,17 @@ export default async function NotePage({
           <time className="text-sm text-zinc-400">
             {formatArticleDate(note.createTime)}
           </time>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight">
             {note.title}
           </h1>
         </div>
       </header>
-      <Tiptap content={note.content} editable={false} />
+      <Tiptap
+        key={note.slug}
+        content={note.content}
+        editable={false}
+        showTableOfContents
+      />
     </article>
   );
 }

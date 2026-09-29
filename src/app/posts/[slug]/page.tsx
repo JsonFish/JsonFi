@@ -21,12 +21,17 @@ export default async function PostPage({
           <time className="text-sm text-zinc-400">
             {formatArticleDate(post.createTime)}
           </time>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight">
             {post.title}
           </h1>
         </div>
       </header>
-      <Tiptap content={post.content} editable={false} />
+      <Tiptap
+        key={post.slug}
+        content={post.content}
+        editable={false}
+        showTableOfContents
+      />
     </article>
   );
 }

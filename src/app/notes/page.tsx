@@ -1,7 +1,13 @@
-import { NotesListContent } from "@/components/notes-list-content";
-import { getBlogArticles, toArticleListItem } from "@/lib/blog-api";
+import { InfiniteArticleList } from "@/components/infinite-article-list";
+import { getBlogArticlesPage, toArticleListItem } from "@/lib/blog-api";
 
 export default async function NotesPage() {
-  const notes = await getBlogArticles("note");
-  return <NotesListContent notes={notes.map(toArticleListItem)} />;
+  const page = await getBlogArticlesPage("note");
+  return (
+    <InfiniteArticleList
+      type="note"
+      initialItems={page.articleList.map(toArticleListItem)}
+      initialTotal={page.total}
+    />
+  );
 }

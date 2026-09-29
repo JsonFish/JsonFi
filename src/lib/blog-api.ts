@@ -26,6 +26,11 @@ type BlogList = {
   pageSize: number;
 };
 
+export const BLOG_LIST_PAGE_SIZE = 10;
+
+/** 首页「最新文章」区块的展示条数 */
+export const HOME_LATEST_COUNT = 3;
+
 class BlogApiError extends Error {
   constructor(
     message: string,
@@ -60,10 +65,29 @@ async function fetchBlog<T>(path: string): Promise<T> {
 
 export async function getBlogArticles(
   type: BlogType,
-  pageSize = 20,
+  pageSize: number,
 ): Promise<BlogArticle[]> {
-  const data = await fetchBlog<BlogList>(`/blog/${type}s?pageSize=${pageSize}`);
+  const data = await getBlogArticlesPage(type, 1, pageSize);
   return data.articleList;
+}
+
+export function getBlogArticlesPage(
+  type: BlogType,
+  page = 1,
+  pageSize = BLOG_LIST_PAGE_SIZE,
+): Promise<BlogList> {
+  return fetchBlog<BlogList>(
+    `/blog/${type}s?page=${page}&pageSize=${pageSize}`,
+  );
+}
+
+/** 解码失败不应把 404 变成 500；非法转义本会被路由层拦掉（实测为 400） */
+function decodeSlug(slug: string): string {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
 }
 
 export async function getBlogArticle(
@@ -71,8 +95,11 @@ export async function getBlogArticle(
   slug: string,
 ): Promise<BlogArticle | null> {
   try {
+    // Next.js supplies dynamic route params in URL-encoded form. Decode first
+    // so the path below is encoded exactly once for the Nest API.
+    const decodedSlug = decodeSlug(slug);
     return await fetchBlog<BlogArticle>(
-      `/blog/${type}s/${encodeURIComponent(slug)}`,
+      `/blog/${type}s/${encodeURIComponent(decodedSlug)}`,
     );
   } catch (error) {
     if (error instanceof BlogApiError && error.status === 404) {
@@ -106,3 +133,9 @@ export function toArticleListItem(article: BlogArticle): ArticleListItem {
     slug: article.slug,
   };
 }
+
+/** /api/articles 的响应契约：客户端与服务端共用这一份定义 */
+export type ArticleListPage = {
+  items: ArticleListItem[];
+  total: number;
+};

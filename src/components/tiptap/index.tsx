@@ -19,6 +19,8 @@ import {
   Heading2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ArticleToc } from "@/components/article-toc";
+import { HeadingAnchors } from "./heading-anchors";
 
 const lowlight = createLowlight(common);
 
@@ -161,10 +163,12 @@ const Toolbar = ({ editor }: { editor: Editor | null }) => {
 const Tiptap = ({
   content = "",
   editable = true,
+  showTableOfContents = false,
   onChange = () => {},
 }: {
   content?: string;
   editable?: boolean;
+  showTableOfContents?: boolean;
   onChange?: (markdown: string) => void;
 }) => {
   const editor = useEditor({
@@ -173,6 +177,7 @@ const Tiptap = ({
       CodeBlockLowlight.configure({ lowlight }),
       LegacyImage,
       Markdown,
+      ...(!editable && showTableOfContents ? [HeadingAnchors] : []),
     ],
     content,
     contentType: "markdown",
@@ -190,7 +195,8 @@ const Tiptap = ({
   });
 
   return (
-    <div className="w-full">
+    <div className="relative w-full min-w-0">
+      {!editable && showTableOfContents && editor && <ArticleToc editor={editor} />}
       {editable && <Toolbar editor={editor} />}
       <EditorContent editor={editor} />
     </div>
