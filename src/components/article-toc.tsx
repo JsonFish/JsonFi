@@ -109,7 +109,7 @@ export function ArticleToc({ editor }: { editor: Editor }) {
         </summary>
         <div className="mt-3 max-h-72 overflow-y-auto">{links}</div>
       </details>
-      <aside className="absolute top-0 left-full ml-10 hidden h-full w-48 xl:block">
+      <aside className="absolute top-0 left-full ml-6 hidden h-full w-60 xl:block">
         <div className="sticky top-28 max-h-[calc(100dvh-9rem)] overflow-y-auto">
           <p className="mb-4 text-sm font-semibold">{t("article.toc")}</p>
           {links}

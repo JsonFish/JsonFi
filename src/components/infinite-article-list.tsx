@@ -1,11 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
+import { ArticleLink } from "@/components/article-scroll-reset";
 import { Button } from "@/components/ui/button";
-import type { ArticleListItem, ArticleListPage, BlogType } from "@/lib/blog-api";
+import type {
+  ArticleListItem,
+  ArticleListPage,
+  BlogType,
+} from "@/lib/blog-api";
+import type { Locale } from "@/lib/i18n";
 
 type ListState = {
   items: ArticleListItem[];
@@ -58,14 +63,16 @@ function listReducer(state: ListState, action: ListAction): ListState {
 
 export function InfiniteArticleList({
   type,
+  locale,
   initialItems,
   initialTotal,
 }: {
   type: BlogType;
+  locale: Locale;
   initialItems: ArticleListItem[];
   initialTotal: number;
 }) {
-  const { t } = useLanguage();
+  const { t, locale: selectedLocale } = useLanguage();
   const [state, dispatch] = useReducer(
     listReducer,
     { items: initialItems, total: initialTotal },
@@ -80,7 +87,7 @@ export function InfiniteArticleList({
   const isPost = type === "post";
 
   const loadMore = useCallback(async () => {
-    if (!hasMore || loadingRef.current) return;
+    if (!hasMore || loadingRef.current || selectedLocale !== locale) return;
     loadingRef.current = true;
     setLoading(true);
     setError(false);
@@ -90,12 +97,16 @@ export function InfiniteArticleList({
     const nextPage = page + 1;
 
     try {
-      const response = await fetch(`/api/articles?type=${type}&page=${nextPage}`, {
-        signal: controller.signal,
-      });
+      const response = await fetch(
+        `/api/articles?type=${type}&page=${nextPage}&lang=${locale}`,
+        {
+          signal: controller.signal,
+        },
+      );
       if (!response.ok) throw new Error("Failed to load articles");
 
       const data = (await response.json()) as ArticleListPage;
+      if (controller.signal.aborted) return;
       dispatch({
         type: "append",
         page: nextPage,
@@ -105,16 +116,14 @@ export function InfiniteArticleList({
     } catch {
       if (!controller.signal.aborted) setError(true);
     } finally {
-      // Always release the gate: a stuck loadingRef would silently kill all
-      // future loads. Only the React state update must skip unmounted renders.
+      // Also reset on abort: a quick language switch back may keep this list
+      // mounted, and leaving it loading would prevent pagination from resuming.
       loadingRef.current = false;
-      if (!controller.signal.aborted) {
-        setLoading(false);
-      }
+      setLoading(false);
     }
-  }, [hasMore, page, type]);
+  }, [hasMore, page, type, locale, selectedLocale]);
 
-  useEffect(() => () => abortRef.current?.abort(), []);
+  useEffect(() => () => abortRef.current?.abort(), [selectedLocale]);
 
   useEffect(() => {
     const target = sentinelRef.current;
@@ -129,6 +138,10 @@ export function InfiniteArticleList({
     observer.observe(target);
     return () => observer.disconnect();
   }, [error, hasMore, loading, loadMore]);
+
+  if (selectedLocale !== locale) {
+    return <p role="status">{t("list.loading")}</p>;
+  }
 
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -145,8 +158,10 @@ export function InfiniteArticleList({
         {items.map((item) => (
           <article key={item.slug} className="group flex flex-col items-start">
             <time className="mb-2 text-sm text-zinc-400">{item.date}</time>
-            <h2 className="mb-3 text-2xl font-semibold transition-colors group-hover:text-zinc-600 dark:group-hover:text-zinc-300">
-              <Link href={`/${type}s/${item.slug}`}>{item.title}</Link>
+            <h2 className="mb-3 text-xl font-semibold transition-colors group-hover:text-zinc-600 dark:group-hover:text-zinc-300">
+              <ArticleLink href={`/${type}s/${item.slug}`}>
+                {item.title}
+              </ArticleLink>
             </h2>
             <p className="line-clamp-2 text-zinc-500 dark:text-zinc-400">
               {item.description}

@@ -6,6 +6,7 @@ import { LanguageProvider } from "@/components/language-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { auth, authProviders } from "@/auth";
+import { getRequestLocale } from "@/lib/server-locale";
 
 // Geist（无衬线）和 Geist_Mono（等宽）
 const geistSans = Geist({
@@ -33,9 +34,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = process.env.AUTH_SECRET ? await auth() : null;
+  const locale = await getRequestLocale();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale === "zh" ? "zh-CN" : "en"} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -54,24 +56,12 @@ export default async function RootLayout({
             `,
           }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var loc = localStorage.getItem('locale');
-                  document.documentElement.lang = loc === 'zh' ? 'zh-CN' : 'en';
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground selection:bg-zinc-200 dark:selection:bg-zinc-800`}
       >
         <ThemeProvider>
-          <LanguageProvider>
+          <LanguageProvider initialLocale={locale}>
             <div className="max-w-3xl mx-auto px-6">
               <SiteHeader
                 userName={session?.user?.name ?? session?.user?.email ?? null}

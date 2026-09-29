@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArticleLink } from "@/components/article-scroll-reset";
 import Image from "next/image";
 import { Github, Mail } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
@@ -25,7 +26,7 @@ export function HomeContent({ posts }: { posts: ArticleListItem[] }) {
 
           <p className="text-zinc-500 dark:text-zinc-400">
             {t("home.interestedIntro")}{" "}
-            <span className="text-[#75c2d9] font-semibold">React</span>,{" "}
+            <span className="text-[#59C4DC] font-semibold">React</span>,{" "}
             <span className="text-[#000000] dark:text-[#ffffff] font-semibold">
               NextJs
             </span>{" "}
@@ -99,8 +100,10 @@ export function HomeContent({ posts }: { posts: ArticleListItem[] }) {
               className="group flex flex-col items-start"
             >
               <time className="text-sm text-zinc-400 mb-2">{post.date}</time>
-              <h2 className="text-2xl font-semibold mb-3 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
-                <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+              <h2 className="text-xl font-semibold mb-3 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+                <ArticleLink href={`/posts/${post.slug}`}>
+                  {post.title}
+                </ArticleLink>
               </h2>
               <p className="text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2">
                 {post.description}

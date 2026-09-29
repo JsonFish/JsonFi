@@ -112,12 +112,20 @@ html.theme-transition * {
   }
 }
 
+/* 客户端导航落地时，Tiptap 内容尚未挂载，文档会短暂塌缩到一屏以内，
+   footer 处于视口内会被 Chrome 选为 scroll anchoring 锚点；随后正文与图片
+   把文档撑高，锚点被持续下推，视口被拖到页面底部（表现为从列表深处点进
+   文章后停在文章中部/底部）。禁止 footer 作为锚点，让锚点落在文档顶部
+   区域的元素上，内容增长不再拖动视口。 */
+footer {
+  overflow-anchor: none;
+}
+
 /* Custom Scrollbar for Webkit Browsers */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }

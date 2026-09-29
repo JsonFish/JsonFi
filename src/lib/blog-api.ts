@@ -1,3 +1,5 @@
+import { defaultLocale, type Locale } from "@/lib/i18n";
+
 export type BlogType = "post" | "note";
 
 export type BlogArticle = {
@@ -66,8 +68,9 @@ async function fetchBlog<T>(path: string): Promise<T> {
 export async function getBlogArticles(
   type: BlogType,
   pageSize: number,
+  locale: Locale = defaultLocale,
 ): Promise<BlogArticle[]> {
-  const data = await getBlogArticlesPage(type, 1, pageSize);
+  const data = await getBlogArticlesPage(type, 1, pageSize, locale);
   return data.articleList;
 }
 
@@ -75,9 +78,10 @@ export function getBlogArticlesPage(
   type: BlogType,
   page = 1,
   pageSize = BLOG_LIST_PAGE_SIZE,
+  locale: Locale = defaultLocale,
 ): Promise<BlogList> {
   return fetchBlog<BlogList>(
-    `/blog/${type}s?page=${page}&pageSize=${pageSize}`,
+    `/blog/${type}s?page=${page}&pageSize=${pageSize}&lang=${locale}`,
   );
 }
 
@@ -93,13 +97,14 @@ function decodeSlug(slug: string): string {
 export async function getBlogArticle(
   type: BlogType,
   slug: string,
+  locale: Locale = defaultLocale,
 ): Promise<BlogArticle | null> {
   try {
     // Next.js supplies dynamic route params in URL-encoded form. Decode first
     // so the path below is encoded exactly once for the Nest API.
     const decodedSlug = decodeSlug(slug);
     return await fetchBlog<BlogArticle>(
-      `/blog/${type}s/${encodeURIComponent(decodedSlug)}`,
+      `/blog/${type}s/${encodeURIComponent(decodedSlug)}?lang=${locale}`,
     );
   } catch (error) {
     if (error instanceof BlogApiError && error.status === 404) {
@@ -109,8 +114,8 @@ export async function getBlogArticle(
   }
 }
 
-export function formatArticleDate(value: string) {
-  return new Intl.DateTimeFormat("en-US", {
+export function formatArticleDate(value: string, locale: Locale = defaultLocale) {
+  return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-US", {
     year: "numeric",
     month: "short",
     day: "2-digit",
@@ -125,10 +130,13 @@ export type ArticleListItem = {
   slug: string;
 };
 
-export function toArticleListItem(article: BlogArticle): ArticleListItem {
+export function toArticleListItem(
+  article: BlogArticle,
+  locale: Locale = defaultLocale,
+): ArticleListItem {
   return {
     title: article.title,
-    date: formatArticleDate(article.createTime),
+    date: formatArticleDate(article.createTime, locale),
     description: article.description,
     slug: article.slug,
   };
